@@ -1,0 +1,49 @@
+﻿@model CancerAM.Models.ArticleViewModel;
+
+<h4>@Model.Title</h4>
+<hr />
+
+<div class="row">
+    <div class="stub">
+        <div id="listDiv" class="center" style="margin-left: auto; margin-right: auto; display: table;">
+            <ul data-tabs-position="vertical h-100" data-role="tabs" style="text-align: left;">
+                @foreach (var subArticle in Model.SubArticles)
+                {
+                    <li><a href="#" onclick="showSubArticle('@subArticle.Id')">@subArticle.Title</a></li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="cell">
+        @for (int i = 0; i < Model.SubArticles.Count; i++)
+        {
+            if (i != 0)
+            {
+                <div id="@Model.SubArticles[i].Id" style="display: none;" class="subArticleCell">
+                    @Html.Raw(Model.SubArticles[i].Body)
+                </div>
+            }
+            else
+            {
+                <div id="@Model.SubArticles[i].Id" class="subArticleCell">
+                    @Html.Raw(Model.SubArticles[i].Body)
+                </div>
+            }
+        }
+    </div>
+</div>
+
+<style>
+    .hide{
+        display: none;
+    }
+</style>
+
+<script>
+    $('#mainTab_@Model.Category.Id').addClass('active');
+
+    function showSubArticle(id) {
+        $('.subArticleCell').hide();
+        $('#' + id).show();
+    }
+</script>

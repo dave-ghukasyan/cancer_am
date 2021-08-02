@@ -1,0 +1,48 @@
+﻿@using System.Web
+@model CancerAM.Models.Admin.AdminArticleEditViewModel
+
+<div data-role="splitter" class="h-100" data-split-sizes="25, 75">
+    <div class="d-flex flex-justify-center flex-align-center">
+
+        <ul data-role="listview">
+            @if (Model.Article.SubArticles != null && Model.Article.SubArticles.Count > 0)
+            {
+                @foreach (var subArticle in Model.Article.SubArticles)
+                {
+                    var url =
+                        $"window.location='/admin?currentCategoryId={@Model.Article.Category.Id}&currentArticleId={@Model.Article.Id}&currentSubArticleId={@subArticle.Id}'";
+
+                    <li class="node" onclick=@url>
+                        <span class="icon">
+                            <span class="mif-document-file-docx gf-cyan" style="color: #519fc9 !important;"></span>
+                        </span>
+                        <div class="data">
+                            @subArticle.Title
+                        </div>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+    <div class="d-flex flex-justify-center flex-align-center">
+        @if (Model.CurrentSubArticle != null)
+        {
+            <div>
+                <div class="put-right">
+                    <button class="button success" onclick="showSubArticleBodySaveDialog(@Model.Article.Category.Id, @Model.Article.Id, @Model.CurrentSubArticle.Id)">
+                        <span class="mif-done icon"></span>
+                    </button>
+                    <button class="button alert" onclick="showSubArticleDeleteDialog(@Model.Article.Category.Id, @Model.Article.Id, @Model.CurrentSubArticle.Id, '@Model.CurrentSubArticle.Title')" >
+                        <span class="mif-bin icon"></span>
+                    </button>
+                </div>
+                <hr/>
+                <div id="text-editor">@Html.Raw(HttpUtility.HtmlDecode(@Model.CurrentSubArticle.Body))</div>
+            </div>
+
+            <script>
+                $('#text-editor').trumbowyg();
+            </script>
+        }
+    </div>
+</div>

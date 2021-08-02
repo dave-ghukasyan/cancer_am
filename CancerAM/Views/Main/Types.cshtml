@@ -1,0 +1,44 @@
+﻿@model CancerAM.Models.CategoryViewModel
+@using System.Linq;
+
+@{
+    List<List<ArticleViewModel>> allArticles = Model.Articles != null ? Split(Model.Articles) : new List<List<ArticleViewModel>>();
+}
+
+<div>
+    <div>
+        Այս կայքում կարող եք գտնել վստահելի, ժամանակակից, ապացուցողական տեղեկատվություն քաղցկեղի տարբեր տեսակների կանխարգելման, ախտորոշման և բուժման մասին։
+        Կայքը տրամադրում է նաև տեղեկատվություն ՀՀ բուժհաստատությունների և մասնագետների մասին։ Բոլոր նյութերը մշակված և վերանայված են բժիշկների կողմից։
+    </div>
+    <div class="row">
+        @foreach (var articles in allArticles)
+        {
+            <div class="cell-md-4">
+                <div class="items-list">
+                    @foreach (var article in articles)
+                    {
+                        <div class="item">
+                            <a href="/main/index/@Model.Id/@article.Id"><span class="mif-chevron-right"></span>@article.Title</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@functions
+{
+    public static List<List<T>> Split<T>(List<T> source)
+    {
+        return source
+            .Select((x, i) => new { Index = i, Value = x })
+            .GroupBy(x => x.Index / 6)
+            .Select(x => x.Select(v => v.Value).ToList())
+            .ToList();
+    }
+}
+
+<script>
+    $('#mainTab_@Model.Id').addClass('active');
+</script>

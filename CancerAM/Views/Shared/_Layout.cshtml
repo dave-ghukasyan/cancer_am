@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- Metro 4 -->
+    <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4/css/metro-all.min.css">
+    
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
+</head>
+
+<body class="metro">
+    <div class="container">
+        <ul class="h-menu no-hover">
+            <li><a href="https://cityofsmile.org/">City of Smile</a></li>
+            <li><a href="https://www.bridgeofhealth.org/">Bridge of Health</a></li>
+            <li><a href="http://f100.am/">f100.am</a></li>
+            <li style="margin-top: 7px;">
+                <button class="button primary small rounded"
+                        style="line-height: 3px;">
+                    Նվիրաբերել
+                </button>
+            </li>
+        </ul>
+        <hr />
+        <div class="grid">
+            <div class="row">
+                <div class="cell">
+                    <img src="~/img/static_content/base-logo.png" style="width:40%;" />
+                </div>
+                <div class="cell">
+                    <div class="float-right" style="margin-top: 6%;">
+                        <a href="https://www.facebook.com/cancerarmenia">
+                            <span class="mif-facebook2 mif-3x" style="color: #0366d6;"></span>
+                        </a>
+                        <a href="https://www.instagram.com/canceram/">
+                            <span class="mif-instagram mif-3x" style="color: #eb6434;"></span>
+                        </a>
+                        <a href="https://twitter.com/cancerarmenia/">
+                            <span class="mif-twitter mif-3x" style="color: rgb(29, 161, 242);"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            @await Component.InvokeAsync("MainTab")
+        </div>
+        <div style="margin-top: 1%;">
+            @RenderBody()
+        </div>
+        
+    </div>
+    @*<div class="position-absolute pos-bottom-center" style="width: 70%; text-align: center; margin-bottom: 1%; font-size: 14px; bottom: 0;">
+        <hr />
+        Հեռ.` <a href="tel:+37411621000">+374 11 62 10 00</a> <br>
+        Էլ. Փոստ.` <a href="mailto:info@cancer.am">info@cancer.am</a><br />
+        Հասցե` ՀՀ, ք. Երևան, Մուրացան 114 <br />
+        «Cancer.AM» © @DateTime.Now.Year. Բոլոր իրավունքները պաշտպանված են: <br />
+    </div>*@
+
+    
+    
+</body>
+</html>
+
+

@@ -1,0 +1,11 @@
+﻿@model List<CancerAM.Models.CategoryViewModel> 
+
+<div>
+    <ul data-cls-tabs="flex-justify-center" data-role="tabs" data-expand="true">
+        <li><a href="#"><span class="mif-home mif-1x"></span></a></li>
+        @foreach (var category in Model)
+        {
+            <li id="mainTab_@category.Id"><a href="/main/index/@category.Id">@category.Name.ToUpper()</a></li>
+        }
+    </ul>
+</div>

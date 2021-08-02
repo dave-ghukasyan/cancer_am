@@ -1,0 +1,53 @@
+﻿@model CancerAM.Models.ArticleViewModel;
+
+<div>
+    <h2>@Model.Title</h2>
+    <h5>@Model.SecondTitle</h5>
+
+    <div class="row">
+        <div class="stub" style="max-width: 20%;">
+            <div style="margin-bottom: 5%;">
+                <img src="@Model.Image" style="width:275px; height:200px;">
+            </div>
+            <div>
+                @Html.Raw(@Model.Body)
+            </div>
+        </div>
+        <div class="cell">
+            @foreach (var subArticle in Model.SubArticles)
+            {
+                <h5>@subArticle.Title</h5>
+                <div>
+                    @Html.Raw(@subArticle.Body)
+                </div>
+            }
+        </div>
+    </div>
+    <hr />
+
+    @if (false)
+    {
+        <div class="row">
+            <div class="stub">
+                <div id="listDiv" class="center" style="margin-left: auto; margin-right: auto; display: table;">
+                    <ul data-tabs-position="vertical h-100" data-role="tabs" style="text-align: left;">
+                        @foreach (var subArticle in Model.SubArticles)
+                        {
+                            <li><a href="#">@subArticle.Title</a></li>
+                        }
+                    </ul>
+                </div>
+
+            </div>
+            <div class="cell">
+                Այս կայքում կարող եք գտնել վստահելի, ժամանակակից, ապացուցողական տեղեկատվություն քաղցկեղի տարբեր տեսակների կանխարգելման, ախտորոշման և բուժման մասին։
+                Կայքը տրամադրում է նաև տեղեկատվություն ՀՀ բուժհաստատությունների և մասնագետների մասին։ Բոլոր նյութերը մշակված և վերանայված են բժիշկների կողմից։
+            </div>
+        </div>
+    }
+</div>
+
+
+<script>
+    $('#mainTab_@Model.Category.Id').addClass('active');
+</script>

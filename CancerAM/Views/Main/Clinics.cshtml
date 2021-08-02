@@ -1,0 +1,27 @@
+﻿@model CancerAM.Models.CategoryViewModel
+
+<div class="row">
+    @if (Model.Articles != null)
+    {
+        @foreach (var article in Model.Articles)
+        {
+            <div class="cell-md-3">
+                <div class="card" style="cursor: pointer;">
+                    <div class="card-header">
+                        <a href="/main/index/@Model.Id/@article.Id">
+                            <img src="@article.Image" style="width:275px; height:158px;">
+                        </a>
+                    </div>
+                    <div class="card-content p-2" style="text-align:center;">
+                        @article.Title.ToUpper()
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+<script>
+    $('#mainTab_@Model.Id').addClass('active');
+</script>
+

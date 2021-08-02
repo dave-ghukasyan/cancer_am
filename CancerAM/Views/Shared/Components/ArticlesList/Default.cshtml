@@ -1,0 +1,65 @@
+﻿@model List<ArticleViewModel>
+
+<table class="table row-hover row-border" data-role="table">
+    <thead>
+    <tr>
+        <th></th>
+        <th></th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Created At</th>
+        <th>Modified Date</th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody class="">
+    
+    @for(var i = 0; i < Model.Count; i++)
+    {
+        var article = Model[i];
+        var url = $"window.location='/admin?currentCategoryId={@article.Category.Id}&currentArticleId={@article.Id}'";
+        var position = @article.Position.HasValue ? @article.Position.Value.ToString() : "null";
+
+        <tr>
+            <td>
+                @if (i != 0)
+                {
+                    <button class="button cycle success small outline"
+                            onclick="increasePosition(@article.Category.Id, @article.Id, '@position')">
+                        <span class="mif-arrow-up icon"></span>
+                    </button>
+                }
+            </td>
+            <td>
+                @if (i != Model.Count - 1)
+                {
+                    <button class="button cycle success small outline"
+                            onclick="decreasePosition(@article.Category.Id, @article.Id, '@position')">
+                        <span class="mif-arrow-down icon"></span>
+                    </button>
+                }
+            </td>
+            <td>@article.Title</td>
+            <td>@article.Author.FullName</td>
+            <td>@article.CreatedDate</td>
+            <td>
+                @if (@article.ModifiedDate.HasValue)
+                {
+                    @article.ModifiedDate
+                }
+            </td>
+            <td>
+                <button class="button cycle success outline" onclick=@url>
+                    <span class="mif-arrow-right icon"></span>
+                </button>
+            </td>
+            <td>
+                <button class="button cycle alert outline" onclick="showArticleDeleteDialog(@article.Category.Id, @article.Id, '@article.Title')">
+                    <span class="mif-bin icon"></span>
+                </button>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

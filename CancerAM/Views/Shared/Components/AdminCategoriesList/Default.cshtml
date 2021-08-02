@@ -1,0 +1,27 @@
+﻿@model List<CategoryViewModel>
+
+<div data-role="window"
+     data-title="Categories"
+     data-btn-min="false"
+     data-btn-max="false"
+     data-resizable="false"
+     data-shadow="true"
+     data-btn-close="false"
+     data-draggable="false"
+     class="p-4">
+    <div class="card-content p-2">
+        <ul data-role="listview">
+            @foreach (var category in Model)
+            {
+                <li class="node" onclick="window.location='/admin?currentCategoryId=@category.Id'">
+                    <span class="icon">
+                        <span class="mif-folder gf-cyan" style="color: #519fc9 !important;"></span>
+                    </span>
+                    <div class="data">
+                        @category.Name
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

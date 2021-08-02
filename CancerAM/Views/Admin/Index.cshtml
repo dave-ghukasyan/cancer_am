@@ -1,0 +1,77 @@
+﻿@using System.Web
+@using CancerAM.Models.Admin
+@model AdminContentViewModel
+
+@{
+    Layout = "_AdminLayout";
+    
+}
+
+<div class="grid">
+    <div class="row">
+        <div class="cell-2">
+            @await Component.InvokeAsync("AdminCategoriesList")
+        </div>
+        <div class="cell-8">
+            @if (Model.CurrentCategoryId.HasValue)
+            {
+                var currentCategoryUrl = "/admin?currentCategoryId=" + @Model.CurrentCategoryId.Value;
+                
+                <h2>
+                    <a href="@currentCategoryUrl">@Model.CurrentCategoryName </a>
+                    
+                    @if (Model.CurrentArticleId.HasValue && Model.CurrentArticle != null)
+                    {
+                        var currentArticleUrl = $"{currentCategoryUrl}&currentArticleId=" + Model.CurrentArticleId.Value;
+                        
+                        <span class="mif-chevron-right icon"></span>
+                        
+                        <a href="@currentArticleUrl">@Model.CurrentArticle?.Title</a>
+                                                                                 
+                        @if (Model.CurrentSubArticleId.HasValue)
+                        {
+                            <span class="mif-chevron-right icon"></span>
+                            @Model.CurrentSubArticle?.Title
+                            <button class="button success" 
+                                    onclick="showSubArticleTitleEditDialog('@Model.CurrentSubArticle?.Title', @Model.CurrentCategoryId, @Model.CurrentArticleId.Value, @Model.CurrentSubArticleId)">
+                                <span class="mif-pencil icon"></span>
+                            </button>
+                        }
+                        else
+                        {
+                            <button class="button success" 
+                                    onclick="showUpdateArticleDialog(@Model.CurrentCategoryId, @Model.CurrentArticleId.Value, '@Model.CurrentArticle.Title', '@Model.CurrentArticle.Image', '@Model.CurrentArticle.SecondTitle')">
+                                <span class="mif-pencil icon"></span>
+                            </button>
+                            <button class="button success" 
+                                    onclick="showSubArticleCreateDialog(@Model.CurrentCategoryId, @Model.CurrentArticleId.Value)">
+                                <span class="mif-plus icon"></span>
+                            </button>
+                        }
+                    }
+                    else
+                    {
+                        <button class="button success" 
+                                onclick="showNewArticleDialog(@Model.CurrentCategoryId.Value)">
+                            <span class="mif-plus icon"></span>
+                        </button>
+                    }
+                </h2>
+                
+                <hr/>
+
+                @if (!Model.CurrentArticleId.HasValue)
+                {
+                    @await Component.InvokeAsync("ArticlesList", @Model.CurrentCategoryId)
+                }
+                else
+                {
+                    @await Component.InvokeAsync(
+                        "AdminArticleEdit", 
+                        new AdminArticleEditViewModel(Model.CurrentArticle, Model.CurrentSubArticle))
+                }
+            }
+        </div>
+    </div>
+</div>
+

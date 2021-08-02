@@ -1,0 +1,42 @@
+﻿@{
+    Layout = null;
+}
+
+<html lang="en">
+<head>
+    <title>
+        CANCER.AM - Admin Panel
+    </title>
+    <link href="/css/login.css" rel="stylesheet" >
+</head>
+<body>
+<div class="login-page">
+    <div class="form">
+        
+        @if (TempData["login_failed"] != null)
+        {
+            <div style="color: darkred;">
+                @TempData["login_failed"]
+            </div>
+            <hr />    
+        }
+        
+        <form class="login-form" asp-controller="Admin" asp-action="Login" method="post">
+            <input type="text" placeholder="username" name="Username"/>
+            <input type="password" placeholder="password" name="Password"/>
+            <button type="submit">login</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
+
+<script src="lib/jquery/dist/jquery.min.js"></script>
+<script>
+$('.message a').click(function(){
+   $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+});
+</script>
+
+
+
